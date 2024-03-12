@@ -1,0 +1,19 @@
+{
+  "name": "acquiredassetbackend",
+  "version": "1.0.0",
+  "description": "This is the backend for Acquired fixed asset",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kennataddese6/AquiredAssetBackend.git"
+  },
+  "author": "Kenna",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kennataddese6/AquiredAssetBackend/issues"
+  },
+  "homepage": "https://github.com/kennataddese6/AquiredAssetBackend#readme"
+}
