@@ -1,7 +1,7 @@
 const Property = require("../models/propertyModel");
 const asyncHandler = require("express-async-handler");
 
-const registerPropery = asyncHandler(async (req, res) => {
+const registerProperty = asyncHandler(async (req, res) => {
   const property = await Property.create({
     PropertyType: req.body.PropertyType,
     CollateralType: req.body.CollateralType,
@@ -35,5 +35,5 @@ const registerPropery = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
-  registerPropery,
+  registerProperty,
 };
