@@ -10,9 +10,9 @@ const createTransaction = asyncHandler(async (req, res) => {
     TransactionValue: req.body.TransactionValue,
   });
   if (transaction) {
-    console.log(transaction);
+    res.status(200).json(transaction);
   } else {
-    console.log("There is something wrong");
+    res.status(400).json("This is a bad request");
   }
 });
 
