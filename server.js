@@ -15,6 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
 app.use("/api/transactions", require("./routes/transactionRoute"));
+app.use("/api/property", require("./routes/propertyRoutes"));
 
 const server = app.listen(port, () =>
   console.log(`Server started on port ${port}`)
