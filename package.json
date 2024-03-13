@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/kennataddese6/AquiredAssetBackend/issues"
   },
-  "homepage": "https://github.com/kennataddese6/AquiredAssetBackend#readme"
+  "homepage": "https://github.com/kennataddese6/AquiredAssetBackend#readme",
+  "dependencies": {
+    "mongoose": "^8.2.1"
+  }
 }
