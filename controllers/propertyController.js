@@ -34,6 +34,16 @@ const registerProperty = asyncHandler(async (req, res) => {
   }
 });
 
+const getAllProperty = asyncHandler(async (req, res) => {
+  const property = await Property.find();
+  if (property) {
+    res.status(200).json(property);
+  } else {
+    res.status(400);
+  }
+});
+
 module.exports = {
   registerProperty,
+  getAllProperty,
 };
