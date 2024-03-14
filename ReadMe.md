@@ -3,5 +3,6 @@
 // The application server would start on http://localhost:5000
 
 // Here are the APIs
+// http://localhost:5000/api/auction
 // http://localhost:5000/api/property
 // http://localhost:5000/api/transactions
