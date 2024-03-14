@@ -16,6 +16,7 @@ app.use(cors());
 
 app.use("/api/transactions", require("./routes/transactionRoute"));
 app.use("/api/property", require("./routes/propertyRoutes"));
+app.use("/api/auction", require("./routes/auctionRoutes"));
 
 const server = app.listen(port, () =>
   console.log(`Server started on port ${port}`)
