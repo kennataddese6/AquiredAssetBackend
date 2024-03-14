@@ -6,6 +6,6 @@ const {
   getAllAuctions,
 } = require("../controllers/auctionController");
 
-router.post("/", createAuction).get(getAllAuctions);
+router.route("/").post(createAuction).get(getAllAuctions);
 
 module.exports = router;

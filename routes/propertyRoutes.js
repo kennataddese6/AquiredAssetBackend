@@ -6,6 +6,6 @@ const {
   getAllProperty,
 } = require("../controllers/propertyController");
 
-router.post("/", registerProperty).get(getAllProperty);
+router.route("/").post(registerProperty).get(getAllProperty);
 
 module.exports = router;
