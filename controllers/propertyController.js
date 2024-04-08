@@ -1,5 +1,6 @@
 const Property = require("../models/propertyModel");
 const asyncHandler = require("express-async-handler");
+const Document = require("../models/documentModel");
 
 const registerProperty = asyncHandler(async (req, res) => {
   const property = await Property.create({
@@ -43,7 +44,13 @@ const getAllProperty = asyncHandler(async (req, res) => {
   }
 });
 
+const uploadDocument = asyncHandler(async (req, res) => {
+  console.log("If it exits", req.body);
+  console.log("If it ", req.file);
+});
+
 module.exports = {
   registerProperty,
   getAllProperty,
+  uploadDocument,
 };
