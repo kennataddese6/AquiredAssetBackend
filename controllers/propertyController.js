@@ -45,8 +45,24 @@ const getAllProperty = asyncHandler(async (req, res) => {
 });
 
 const uploadDocument = asyncHandler(async (req, res) => {
-  console.log("If it exits", req.body);
-  console.log("If it ", req.file);
+  const document = await Document.create({
+    PropertyId: req.body.PropertyId,
+    DocumentType: req.body.DocumentType,
+    RefNo: req.body.RefNo,
+    Date: req.body.Date,
+    OriginalName: req.file.originalname,
+    Encoding: req.file.encoding,
+    MimeType: req.file.mimetype,
+    Destination: req.file.destination,
+    FileName: req.file.filename,
+    Path: req.file.path,
+    Size: req.file.size,
+  });
+  if (document) {
+    res.status(200).json(document);
+  } else {
+    res.status(400).json("Something went wrong");
+  }
 });
 
 module.exports = {
