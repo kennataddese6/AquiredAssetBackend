@@ -15,7 +15,16 @@ const createTransaction = asyncHandler(async (req, res) => {
     res.status(400).json("This is a bad request");
   }
 });
+const getTransactions = asyncHandler(async (req, res) => {
+  const transaction = await Transaction.find();
+  if (transaction) {
+    res.status(200).json(transaction);
+  } else {
+    res.status(400).json("This is a bad request");
+  }
+});
 
 module.exports = {
   createTransaction,
+  getTransactions,
 };
