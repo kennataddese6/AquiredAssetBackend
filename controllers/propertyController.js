@@ -1,7 +1,7 @@
 const Property = require("../models/propertyModel");
 const asyncHandler = require("express-async-handler");
 const Document = require("../models/documentModel");
-
+const transactionInfo = require("../transactionInfo.json");
 const registerProperty = asyncHandler(async (req, res) => {
   const property = await Property.create({
     PropertyType: req.body.PropertyType,
@@ -44,9 +44,13 @@ const getAllProperty = asyncHandler(async (req, res) => {
 });
 
 const getProperty = asyncHandler(async (req, res) => {
-  const property = await Property.findOne({ _id: req.body.Id });
+  const property = await Property.findOne({ _id: req.query.Id });
   if (property) {
-    res.status(200).json(property);
+    const PropertyInfo = {
+      property: property,
+      transactionFormat: transactionInfo[property.PropertyType],
+    };
+    res.status(200).json(PropertyInfo);
   } else {
     res.status(400);
   }

@@ -1,0 +1,34 @@
+{
+  "Building": {
+    "income": ["Rent", "Other"],
+    "expense": [
+      "Insurance",
+      "Electricity",
+      "Water",
+      "Telephone",
+      "Security",
+      "Store Treatment",
+      "Labour Cost",
+      "Land or Lease fees",
+      "Muncipality",
+      "Property Tax fees",
+      "Advertisement/Auction fees",
+      "Ownership Transfer fees",
+      "Other"
+    ]
+  },
+  "Vehicle": {
+    "income": ["Rent", "Other"],
+    "expense": [
+      "Insurance",
+      "Maintainance",
+      "Security",
+      "Parking",
+      "Labour Cost",
+      "Muncipality fees",
+      "Advertisement/Auction fees",
+      "Ownership Transfer fees",
+      "Fuel"
+    ]
+  }
+}
