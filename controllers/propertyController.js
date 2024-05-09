@@ -43,6 +43,15 @@ const getAllProperty = asyncHandler(async (req, res) => {
   }
 });
 
+const getProperty = asyncHandler(async (req, res) => {
+  const property = await Property.findOne({ _id: req.body.Id });
+  if (property) {
+    res.status(200).json(property);
+  } else {
+    res.status(400);
+  }
+});
+
 const disposeProperty = asyncHandler(async (req, res) => {
   const result = await Property.findOneAndUpdate(
     { _id: req.body.Id },
@@ -80,4 +89,5 @@ module.exports = {
   getAllProperty,
   uploadDocument,
   disposeProperty,
+  getProperty,
 };

@@ -22,9 +22,13 @@ const {
   registerProperty,
   getAllProperty,
   uploadDocument,
+  getProperty,
+  disposeProperty,
 } = require("../controllers/propertyController");
 
-router.route("/").post(registerProperty).get(getAllProperty);
+router.route("/").post(registerProperty).get(getProperty);
+router.route("/all").get(getAllProperty);
+router.route("/dispose").post(disposeProperty);
 
 router.post("/document", upload.single("file"), uploadDocument);
 module.exports = router;
