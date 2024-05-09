@@ -29,24 +29,7 @@ const InsuranceRenewalSchema = new mongoose.Schema({
     // required: [true, "Please add an Insurance Renewal End Date"],
   },
 });
-const DocumentSchema = new mongoose.Schema({
-  Document: {
-    type: Buffer,
-    // required: [true, "Please Upload a document"],
-  },
-  DocumentType: {
-    type: String,
-    // required: [true, "Please add a Document type"],
-  },
-  RefNo: {
-    type: Date,
-    // required: [true, "Please add a Reference Number"],
-  },
-  Date: {
-    type: Date,
-    // required: [true, "Please add a Date"],
-  },
-});
+
 const AddressSchema = new mongoose.Schema({
   Region: {
     type: String,
@@ -136,7 +119,7 @@ const PropertySchema = mongoose.Schema(
       // required: [true, "Please add a Acquisition Date"],
     },
     AcquisitionValue: {
-      type: Boolean,
+      type: String,
       // required: [true, "Please add an Acquisition Value"],
     },
     PrincipaleAcquistion: {
@@ -170,10 +153,6 @@ const PropertySchema = mongoose.Schema(
     PropertyAddress: {
       type: AddressSchema,
       // required: [true, "Please add a Property Address"],
-    },
-    Document: {
-      type: DocumentSchema,
-      // required: [true, "Please add a Document"],
     },
   },
   {

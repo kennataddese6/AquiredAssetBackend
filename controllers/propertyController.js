@@ -26,7 +26,6 @@ const registerProperty = asyncHandler(async (req, res) => {
     ReEstimation: req.body.ReEstimation,
     InsuranceRenewal: req.body.InsuranceRenewal,
     PropertyAddress: req.body.PropertyAddress,
-    Document: req.body.Document,
   });
   if (property) {
     res.status(200).json(property);
@@ -44,6 +43,17 @@ const getAllProperty = asyncHandler(async (req, res) => {
   }
 });
 
+const disposeProperty = asyncHandler(async (req, res) => {
+  const result = await Property.findOneAndUpdate(
+    { _id: req.body.Id },
+    { $set: { Disposed: true } }
+  );
+  if (result.modifiedCount) {
+    res.status(200).json("Operation successful");
+  } else {
+    res.status(400).json("Something went wrong");
+  }
+});
 const uploadDocument = asyncHandler(async (req, res) => {
   const document = await Document.create({
     PropertyId: req.body.PropertyId,
@@ -69,4 +79,5 @@ module.exports = {
   registerProperty,
   getAllProperty,
   uploadDocument,
+  disposeProperty,
 };

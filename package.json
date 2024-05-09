@@ -4,7 +4,8 @@
   "description": "This is the backend for Acquired fixed asset",
   "main": "server.js",
   "scripts": {
-    "test": "npm test"
+    "test": "npm test",
+    "dev": "npx nodemon server.js"
   },
   "repository": {
     "type": "git",
