@@ -26,6 +26,8 @@ const registerProperty = asyncHandler(async (req, res) => {
     ReEstimation: req.body.ReEstimation,
     InsuranceRenewal: req.body.InsuranceRenewal,
     PropertyAddress: req.body.PropertyAddress,
+    BranchName: req.body.BranchName,
+    DistrictName: req.body.DistrictName,
   });
   if (property) {
     res.status(200).json(property);
