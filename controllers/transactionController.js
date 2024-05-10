@@ -16,6 +16,7 @@ const createTransaction = asyncHandler(async (req, res) => {
   }
   const transaction = await Transaction.create({
     PropertyId: req.body.ProperyId,
+    TransactionId: req.body.TransactionId,
     TransactionCategory: req.body.TransactionCategory,
     TransactionType: req.body.TransactionType,
     TransactionDate: req.body.TransactionDate,
