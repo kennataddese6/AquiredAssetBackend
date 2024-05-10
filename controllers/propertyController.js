@@ -2,6 +2,7 @@ const Property = require("../models/propertyModel");
 const asyncHandler = require("express-async-handler");
 const Document = require("../models/documentModel");
 const transactionInfo = require("../transactionInfo.json");
+const { response } = require("express");
 const registerProperty = asyncHandler(async (req, res) => {
   const property = await Property.create({
     PropertyType: req.body.PropertyType,
@@ -46,7 +47,11 @@ const getAllProperty = asyncHandler(async (req, res) => {
 });
 
 const getBranchProperty = asyncHandler(async (req, res) => {
-  const property = await Property.find({ BranchName: req.body.BranchName });
+  const { BranchName } = req.params;
+  if (!BranchName) {
+    return res.status(400);
+  }
+  const property = await Property.find({ BranchName: BranchName });
   if (property) {
     res.status(200).json(property);
   } else {
@@ -55,7 +60,10 @@ const getBranchProperty = asyncHandler(async (req, res) => {
 });
 
 const getDistrictProperty = asyncHandler(async (req, res) => {
-  const property = await Property.find({ DistrictName: req.body.DistrictName });
+  const { DistrictName } = req.params;
+  const property = await Property.find({
+    DistrictName: DistrictName,
+  });
   if (property) {
     res.status(200).json(property);
   } else {
@@ -64,7 +72,11 @@ const getDistrictProperty = asyncHandler(async (req, res) => {
 });
 
 const getProperty = asyncHandler(async (req, res) => {
-  const property = await Property.findOne({ _id: req.query.Id });
+  const { Id } = req.params.Id;
+  if (!Id) {
+    return res.status(400);
+  }
+  const property = await Property.findOne({ _id: Id });
   if (property) {
     const PropertyInfo = {
       property: property,

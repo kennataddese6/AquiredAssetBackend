@@ -24,11 +24,14 @@ const {
   uploadDocument,
   getProperty,
   disposeProperty,
+  getBranchProperty,
+  getDistrictProperty,
 } = require("../controllers/propertyController");
 
-router.route("/").post(registerProperty).get(getProperty);
-router.route("/all").get(getAllProperty);
+router.route("/").post(registerProperty).get(getAllProperty);
 router.route("/dispose").post(disposeProperty);
-
+router.route("/branch/:BranchName").get(getBranchProperty);
+router.route("/district/:DistrictName").get(getDistrictProperty);
+router.route("/:Id").get(getProperty);
 router.post("/document", upload.single("file"), uploadDocument);
 module.exports = router;
