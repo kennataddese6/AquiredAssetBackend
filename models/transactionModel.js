@@ -6,6 +6,10 @@ const TransactionSchema = mongoose.Schema(
       type: String,
       require: [true, "Please add a Property Id"],
     },
+    TransactionId: {
+      type: String,
+      // require: [true, "please add a Transaction Id"],
+    },
     TransactionCategory: {
       type: String,
       require: [true, "please add a Transaction Category"],
