@@ -1,7 +1,19 @@
 const Transaction = require("../models/transactionModel");
+const Property = require("../models/propertyModel");
 const asyncHandler = require("express-async-handler");
 
 const createTransaction = asyncHandler(async (req, res) => {
+  if (req.body.RenewalStartDate && req.body.RenewalEndDate) {
+    const property = await Property.findOne({ _id: req.body.PropertyId });
+    if (property) {
+      const newInsuranceRenewal = {
+        RenewalStartDate: req.body.RenewalStartDate,
+        RenewalEndDate: req.body.RenewalEndDate,
+      };
+      property.InsuranceRenewal.push(newInsuranceRenewal);
+      await property.save();
+    }
+  }
   const transaction = await Transaction.create({
     PropertyId: req.body.ProperyId,
     TransactionCategory: req.body.TransactionCategory,
