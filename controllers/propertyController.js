@@ -2,7 +2,6 @@ const Property = require("../models/propertyModel");
 const asyncHandler = require("express-async-handler");
 const Document = require("../models/documentModel");
 const transactionInfo = require("../transactionInfo.json");
-const { response } = require("express");
 const registerProperty = asyncHandler(async (req, res) => {
   const property = await Property.create({
     PropertyType: req.body.PropertyType,
@@ -25,7 +24,7 @@ const registerProperty = asyncHandler(async (req, res) => {
     Disposed: req.body.Disposed,
     Disposal: req.body.Disposal,
     ReEstimation: req.body.ReEstimation,
-    InsuranceRenewal: req.body.InsuranceRenewal,
+    InsuranceRenewal: [req.body.InsuranceRenewal],
     PropertyAddress: req.body.PropertyAddress,
     BranchName: req.body.BranchName,
     DistrictName: req.body.DistrictName,
