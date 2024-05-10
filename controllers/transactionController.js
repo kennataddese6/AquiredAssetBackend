@@ -10,7 +10,9 @@ const createTransaction = asyncHandler(async (req, res) => {
         RenewalStartDate: req.body.RenewalStartDate,
         RenewalEndDate: req.body.RenewalEndDate,
       };
-      property.InsuranceRenewal.push(newInsuranceRenewal);
+      const insuranceRenewal = property.InsuranceRenewal;
+      const allInsurance = [...insuranceRenewal, newInsuranceRenewal];
+      property.InsuranceRenewal = allInsurance;
       await property.save();
     }
   }
