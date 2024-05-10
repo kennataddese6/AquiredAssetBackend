@@ -45,6 +45,24 @@ const getAllProperty = asyncHandler(async (req, res) => {
   }
 });
 
+const getBranchProperty = asyncHandler(async (req, res) => {
+  const property = await Property.find({ BranchName: req.body.BranchName });
+  if (property) {
+    res.status(200).json(property);
+  } else {
+    res.status(400);
+  }
+});
+
+const getDistrictProperty = asyncHandler(async (req, res) => {
+  const property = await Property.find({ DistrictName: req.body.DistrictName });
+  if (property) {
+    res.status(200).json(property);
+  } else {
+    res.status(400);
+  }
+});
+
 const getProperty = asyncHandler(async (req, res) => {
   const property = await Property.findOne({ _id: req.query.Id });
   if (property) {
@@ -96,4 +114,6 @@ module.exports = {
   uploadDocument,
   disposeProperty,
   getProperty,
+  getBranchProperty,
+  getDistrictProperty,
 };
