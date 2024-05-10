@@ -155,7 +155,7 @@ const PropertySchema = mongoose.Schema(
       // required: [true, "Please add a Re-estimation"],
     },
     InsuranceRenewal: {
-      type: InsuranceRenewalSchema,
+      type: [InsuranceRenewalSchema],
       // required: [true, "Please add Insurance Renewal"],
     },
     PropertyAddress: {
