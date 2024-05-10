@@ -72,7 +72,7 @@ const getDistrictProperty = asyncHandler(async (req, res) => {
 });
 
 const getProperty = asyncHandler(async (req, res) => {
-  const { Id } = req.params.Id;
+  const { Id } = req.params;
   if (!Id) {
     return res.status(400);
   }
