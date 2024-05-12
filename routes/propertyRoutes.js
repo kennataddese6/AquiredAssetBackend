@@ -3,6 +3,7 @@ const router = express.Router();
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const { validator } = require("../middleware/validator");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     const dir = path.join(__dirname, "../uploads");
@@ -28,7 +29,7 @@ const {
   getDistrictProperty,
 } = require("../controllers/propertyController");
 
-router.route("/").post(registerProperty).get(getAllProperty);
+router.route("/").post(validator, registerProperty).get(getAllProperty);
 router.route("/dispose").post(disposeProperty);
 router.route("/branch/:BranchName").get(getBranchProperty);
 router.route("/district/:DistrictName").get(getDistrictProperty);
