@@ -30,9 +30,9 @@ const {
 } = require("../controllers/propertyController");
 
 router.route("/").post(validator, registerProperty).get(getAllProperty);
-router.route("/dispose").post(disposeProperty);
-router.route("/branch/:BranchName").get(getBranchProperty);
-router.route("/district/:DistrictName").get(getDistrictProperty);
-router.route("/:Id").get(getProperty);
-router.post("/document", upload.single("file"), uploadDocument);
+router.route("/dispose").post(validator, disposeProperty);
+router.route("/branch/:BranchName").get(validator, getBranchProperty);
+router.route("/district/:DistrictName").get(validator, getDistrictProperty);
+router.route("/:Id").get(validator, getProperty);
+router.post("/document", upload.single("file"), validator, uploadDocument);
 module.exports = router;
