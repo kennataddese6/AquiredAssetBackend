@@ -30,5 +30,157 @@
       "Ownership Transfer fees",
       "Fuel"
     ]
+  },
+  "Plant and Machinery": {
+    "income": ["Rent", "Other"],
+    "expense": [
+      "Insurance",
+      "Electricity",
+      "Water",
+      "Telephone",
+      "Security",
+      "Store Treatment",
+      "Labour Cost",
+      "Land or Lease fees",
+      "Muncipality",
+      "Property Tax fees",
+      "Advertisement/Auction fees",
+      "Ownership Transfer fees",
+      "Other"
+    ]
+  },
+  "Equipment and Furniture": {
+    "income": ["Rent", "Other"],
+    "expense": [
+      "Insurance",
+      "Electricity",
+      "Water",
+      "Telephone",
+      "Security",
+      "Store Treatment",
+      "Labour Cost",
+      "Land or Lease fees",
+      "Muncipality",
+      "Property Tax fees",
+      "Advertisement/Auction fees",
+      "Ownership Transfer fees",
+      "Other"
+    ]
+  },
+  "Business Establishments": {
+    "income": ["Rent", "Other"],
+    "expense": [
+      "Insurance",
+      "Electricity",
+      "Water",
+      "Telephone",
+      "Security",
+      "Store Treatment",
+      "Labour Cost",
+      "Land or Lease fees",
+      "Muncipality",
+      "Property Tax fees",
+      "Advertisement/Auction fees",
+      "Ownership Transfer fees",
+      "Other"
+    ]
+  },
+  "Merchandise": {
+    "income": ["Rent", "Other"],
+    "expense": [
+      "Insurance",
+      "Electricity",
+      "Water",
+      "Telephone",
+      "Security",
+      "Store Treatment",
+      "Labour Cost",
+      "Land or Lease fees",
+      "Muncipality",
+      "Property Tax fees",
+      "Advertisement/Auction fees",
+      "Ownership Transfer fees",
+      "Other"
+    ]
+  },
+  "Business Stock": {
+    "income": ["Rent", "Other"],
+    "expense": [
+      "Insurance",
+      "Electricity",
+      "Water",
+      "Telephone",
+      "Security",
+      "Store Treatment",
+      "Labour Cost",
+      "Land or Lease fees",
+      "Muncipality",
+      "Property Tax fees",
+      "Advertisement/Auction fees",
+      "Ownership Transfer fees",
+      "Other"
+    ]
+  },
+  "Dividend": {
+    "income": ["Rent", "Other"],
+    "expense": [
+      "Insurance",
+      "Electricity",
+      "Water",
+      "Telephone",
+      "Security",
+      "Store Treatment",
+      "Labour Cost",
+      "Land or Lease fees",
+      "Muncipality",
+      "Property Tax fees",
+      "Advertisement/Auction fees",
+      "Ownership Transfer fees",
+      "Other"
+    ]
+  },
+  "Promissory Note": {
+    "income": ["Rent", "Other"],
+    "expense": [
+      "Insurance",
+      "Telephone",
+      "Muncipality",
+      "Property Tax fees",
+      "Advertisement/Auction fees",
+      "Ownership Transfer fees",
+      "Other"
+    ]
+  },
+  "Negotiable Instruments": {
+    "income": ["Dividend/Interest", "Other"],
+    "expense": [
+      "Telephone",
+      "Property Tax fees",
+      "Advertisement/Auction fees",
+      "Ownership Transfer fees",
+      "Other"
+    ]
+  },
+  "Other Assets": {
+    "income": ["Dividend/Interest", "Other"],
+    "expense": [
+      "Telephone",
+      "Property Tax fees",
+      "Advertisement/Auction fees",
+      "Ownership Transfer fees",
+      "Other"
+    ]
+  },
+  "Ekub": {
+    "income": ["Rent", "Other"],
+    "expense": [
+      "Insurance",
+      "Telephone",
+      "Muncipality",
+      "Property Tax fees",
+      "Advertisement/Auction fees",
+      "Ownership Transfer fees",
+      "Other"
+    ]
   }
 }
