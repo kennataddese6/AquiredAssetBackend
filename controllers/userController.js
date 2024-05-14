@@ -4,25 +4,25 @@ const asyncHandler = require("express-async-handler");
 const login = asyncHandler(async (req, res) => {
   try {
     const { mail, password } = req.body;
-    ad.findUser(mail, (err, user) => {
+    ad.findUser({ attributes: ["*"] }, mail, (err, user) => {
       if (err) {
-        return err;
+        res.status(500).json({ message: "Error retrieving user data" });
+        return;
       }
-      ad.authenticate(mail, password, async (err, auth) => {
-        if (err) {
-          console.log("error");
-          return err;
-        }
-        if (auth) {
-          console.log("This is user", user, auth);
-          res.status(200).json(user);
-        } else {
-          return "Invalid email or password";
-        }
-      });
+      if (user) {
+        ad.authenticate(mail, password, async (err, auth) => {
+          if (err) {
+            throw new Error(err);
+          }
+          if (!auth) {
+            throw new Error("Incorrect username or password");
+          } else if (user) {
+            res.status(200).json(user);
+          }
+        });
+      }
     });
   } catch (error) {
-    console.log(error);
     res.status(400).json(error);
   }
 });
