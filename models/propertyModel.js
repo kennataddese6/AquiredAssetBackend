@@ -82,6 +82,10 @@ const PropertySchema = mongoose.Schema(
       type: String,
       // required: [true, "Please add a CollateralType"],
     },
+    CollateralCategory: {
+      type: String,
+      // required: [true, "Please add a CollateralType"],
+    },
     LHCNumber: {
       type: String,
       // required: [true, "Please add an LHC Number"],
