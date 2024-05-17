@@ -5,6 +5,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
+const cookieParser = require("cookie-parser");
 const wss = new WebSocket.Server({ noServer: true });
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -23,7 +24,8 @@ app.use(helmet());
 app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors(/* corsOptions */));
+app.use(cors());
+app.use(cookieParser());
 /* app.use((req, res, next) => {
   if (!req.headers.origin) {
     return res.status(403).json({ error: "No origin header, request blocked" });
