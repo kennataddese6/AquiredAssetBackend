@@ -32,6 +32,7 @@ app.use(cookieParser());
   }
   next();
 }); */
+app.set("trust proxy", 1); // if there's one proxy between the server and the client
 
 app.use(
   helmet.contentSecurityPolicy({
