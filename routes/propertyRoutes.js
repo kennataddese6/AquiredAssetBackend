@@ -4,6 +4,7 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 const { validator } = require("../middleware/validator");
+const { protect } = require("../middleware/authMiddleware");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     const dir = path.join(__dirname, "../uploads");
@@ -29,10 +30,13 @@ const {
   getDistrictProperty,
 } = require("../controllers/propertyController");
 
-router.route("/").post(validator, registerProperty).get(getAllProperty);
+router
+  .route("/")
+  .post(validator, protect, registerProperty)
+  .get(getAllProperty);
 router.route("/dispose").post(validator, disposeProperty);
-router.route("/branch/:BranchName").get(validator, getBranchProperty);
-router.route("/district/:DistrictName").get(validator, getDistrictProperty);
-router.route("/:Id").get(validator, getProperty);
+router.route("/branch/").get(validator, protect, getBranchProperty);
+router.route("/district/").get(validator, protect, getDistrictProperty);
+// router.route("/:Id([0-9a-fA-F]{24})").get(validator, getProperty);
 router.post("/document", upload.single("file"), validator, uploadDocument);
 module.exports = router;
