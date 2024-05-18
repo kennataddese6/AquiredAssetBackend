@@ -37,6 +37,6 @@ router
 router.route("/dispose").post(validator, disposeProperty);
 router.route("/branch/").get(validator, protect, getBranchProperty);
 router.route("/district/").get(validator, protect, getDistrictProperty);
-// router.route("/:Id([0-9a-fA-F]{24})").get(validator, getProperty);
+router.route("/:Id([0-9a-fA-F]{24})").get(validator, getProperty);
 router.post("/document", upload.single("file"), validator, uploadDocument);
 module.exports = router;
