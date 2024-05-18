@@ -66,7 +66,7 @@ const getProperty = asyncHandler(async (req, res) => {
     };
     res.status(200).json(PropertyInfo);
   } else {
-    res.status(400);
+    res.status(404).json("Property not found!");
   }
 });
 
