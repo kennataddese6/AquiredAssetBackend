@@ -3,6 +3,10 @@ const Property = require("../models/propertyModel");
 const asyncHandler = require("express-async-handler");
 
 const createTransaction = asyncHandler(async (req, res) => {
+  const property = Property.findOnd({ _id: req.body.ProperyId });
+  if (!property) {
+    return res.status(404).json("Property not found!");
+  }
   if (req.body.RenewalStartDate && req.body.RenewalEndDate) {
     const property = await Property.findOne({ _id: req.body.PropertyId });
     if (property) {
