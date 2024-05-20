@@ -20,7 +20,13 @@ const registerProperty = asyncHandler(async (req, res) => {
 });
 
 const getAllProperty = asyncHandler(async (req, res) => {
-  const property = await Property.find();
+  let property;
+  if (req.body.view === "District") {
+    const { BranchName } = req.params;
+    property = await Property.find({ BranchName: BranchName });
+  } else {
+    property = await Property.find();
+  }
   if (property) {
     res.status(200).json(property);
   } else {
