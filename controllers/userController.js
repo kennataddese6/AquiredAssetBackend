@@ -23,7 +23,7 @@ const login = asyncHandler(async (req, res) => {
           }
         });
       } else {
-        res.status(401);
+        res.status(404).json({ error: "Error" });
       }
     });
   } catch (error) {
