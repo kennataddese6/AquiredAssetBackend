@@ -50,7 +50,32 @@ const getMe = asyncHandler(async (req, res) => {
   }
 });
 
+const findUser = asyncHandler(async (req, res) => {
+  ad.findUser({ attributes: ["*"] }, req.body.mail, (err, user) => {
+    if (user) {
+      console.log(
+        user.department.includes("District Facilities Management Support")
+      );
+      res.status(200).json(user);
+    } else {
+      res.status(400).json("User not found");
+    }
+  });
+});
+
+const logout = asyncHandler(async (req, res) => {
+  try {
+    res.clearCookie("token");
+    res.status(200).json({ message: "Successfully logged out" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error logging out" });
+  }
+});
+
 module.exports = {
   login,
   getMe,
+  findUser,
+  logout,
 };
