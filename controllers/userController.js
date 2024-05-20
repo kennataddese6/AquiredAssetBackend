@@ -23,7 +23,7 @@ const login = asyncHandler(async (req, res) => {
           }
         });
       } else {
-        res.status(400).json("User not found");
+        res.status(401);
       }
     });
   } catch (error) {
