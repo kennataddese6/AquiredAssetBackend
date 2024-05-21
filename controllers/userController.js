@@ -4,9 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const generateToken = (mail) =>
   jwt.sign({ mail }, process.env.JWT_SECRET || "ThisIsAVerySillyKeyToDo", {
-    expiresIn: "30d",
-    // expiresIn: 1,
-    // expiresIn: "10s",
+    expiresIn: "1h",
   });
 
 const login = asyncHandler(async (req, res) => {
