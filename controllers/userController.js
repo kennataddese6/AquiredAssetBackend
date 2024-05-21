@@ -1,11 +1,36 @@
 const ad = require("../config/ad");
 const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
+const User = require("../models/userModel");
 
 const generateToken = (mail) =>
   jwt.sign({ mail }, process.env.JWT_SECRET || "ThisIsAVerySillyKeyToDo", {
     expiresIn: "1h",
   });
+
+const createUser = asyncHandler(async (req, res) => {
+  const { mail, role } = req.body;
+  const userExist = await User.findOne({ mail: mail });
+  console.log(userExist);
+  if (userExist) {
+    return res.status(400).json({ message: "User already exist" });
+  }
+  ad.findUser({ attributes: ["*"] }, mail, async (err, user) => {
+    if (user) {
+      const createdUser = await User.create({
+        mail,
+        role,
+      });
+      if (createdUser) {
+        res.status(200).json({ message: "User Created" });
+      } else {
+        res.status(400).json({ message: "Something went wrong" });
+      }
+    } else {
+      res.status(404).json({ message: "User not found!" });
+    }
+  });
+});
 
 const login = asyncHandler(async (req, res) => {
   try {
@@ -76,4 +101,5 @@ module.exports = {
   getMe,
   findUser,
   logout,
+  createUser,
 };
