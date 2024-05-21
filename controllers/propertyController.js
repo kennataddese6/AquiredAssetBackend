@@ -107,6 +107,22 @@ const uploadDocument = asyncHandler(async (req, res) => {
     res.status(400).json("Something went wrong");
   }
 });
+const getDocument = asyncHandler(async (req, res) => {
+  const document = await Document.find({ PropertyId: req.params.Id });
+  if (document) {
+    res.status(200).json(document);
+  } else {
+    res.status(400).json("Something went wrong");
+  }
+});
+const getDocuments = asyncHandler(async (req, res) => {
+  const document = await Document.find();
+  if (document) {
+    res.status(200).json(document);
+  } else {
+    res.status(400).json("Something went wrong");
+  }
+});
 
 module.exports = {
   registerProperty,
@@ -116,4 +132,6 @@ module.exports = {
   getProperty,
   getBranchProperty,
   getDistrictProperty,
+  getDocument,
+  getDocuments,
 };
