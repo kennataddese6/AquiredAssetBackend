@@ -25,9 +25,7 @@ const protect = asyncHandler(async (req, res, next) => {
         req.body.DistrictName = DistrictName;
         req.params.BranchName = BranchName;
         req.params.DistrictName = DistrictName;
-        if (DistrictName.includes("District Facilities Management Support")) {
-          req.body.view = "District";
-        }
+
         next();
       } else {
         res.status(400).json("User not found");
