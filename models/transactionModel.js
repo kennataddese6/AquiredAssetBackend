@@ -6,6 +6,14 @@ const TransactionSchema = mongoose.Schema(
       type: String,
       require: [true, "Please add a Property Id"],
     },
+    BranchName: {
+      type: String,
+      require: [true, "Please add a Property Branch Name"],
+    },
+    DistrictName: {
+      type: String,
+      require: [true, "Please add a Property District Name"],
+    },
     TransactionId: {
       type: String,
       // require: [true, "please add a Transaction Id"],
