@@ -38,10 +38,26 @@ const updateUser = asyncHandler(async (req, res) => {
   if (user) {
     const updatedUser = await User.findOneAndUpdate(
       { mail: mail },
-      { $set: { role: role } }
+      { $set: { role: role } },
+      { new: true }
     );
     if (updatedUser) {
       res.status(200).json({ message: "user updated successfully" });
+    } else {
+      res.status(400).json({ message: "something went wrong" });
+    }
+  } else {
+    res.status(404).json({ message: "user not found" });
+  }
+});
+
+const deleteUser = asyncHandler(async (req, res) => {
+  const { mail } = req.body;
+  const user = await User.findOne({ mail: mail });
+  if (user) {
+    const deletedUser = await User.deleteOne({ mail: mail });
+    if (deletedUser.deletedCount > 0) {
+      res.status(200).json({ message: "user deleted successfully" });
     } else {
       res.status(400).json({ message: "something went wrong" });
     }
@@ -121,4 +137,5 @@ module.exports = {
   logout,
   createUser,
   updateUser,
+  deleteUser,
 };

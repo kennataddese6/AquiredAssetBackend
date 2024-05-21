@@ -8,12 +8,18 @@ const {
   logout,
   createUser,
   updateUser,
+  deleteUser,
 } = require("../controllers/userController");
 const { validator } = require("../middleware/validator");
 
 router.route("/login").post(validator, login);
 router.route("/logout").post(logout);
-router.route("/").get(protect, findUser).post(createUser).put(updateUser);
+router
+  .route("/")
+  .get(protect, findUser)
+  .post(createUser)
+  .put(updateUser)
+  .delete(deleteUser);
 router.route("/me").get(protect, validator, getMe);
 
 module.exports = router;
