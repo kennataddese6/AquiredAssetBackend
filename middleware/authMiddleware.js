@@ -4,7 +4,6 @@ const ad = require("../config/ad");
 
 const protect = asyncHandler(async (req, res, next) => {
   const token = req.cookies.token;
-  const HEADOFFICE = process.env.HEAD_OFFICE;
   if (!token) {
     res.status(401).json("Not authorized");
     return;
@@ -28,9 +27,6 @@ const protect = asyncHandler(async (req, res, next) => {
         req.params.DistrictName = DistrictName;
         if (DistrictName.includes("District Facilities Management Support")) {
           req.body.view = "District";
-        }
-        if (HEADOFFICE.find((central) => central == user.mail)) {
-          req.body.view = "HeadOffice";
         }
         next();
       } else {
