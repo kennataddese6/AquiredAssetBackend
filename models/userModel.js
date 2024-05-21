@@ -2,22 +2,16 @@ const mongoose = require("mongoose");
 
 const userSchema = mongoose.Schema(
   {
-    name: {
+    mail: {
+      type: String,
+      unique: true,
+    },
+    role: {
       type: String,
     },
     secretKey: {
       type: String,
       default: process.env.SECRET_KEY,
-    },
-    roles: {
-      type: String,
-    },
-    email: {
-      type: String,
-      unique: true,
-    },
-    password: {
-      type: String,
     },
   },
   {
