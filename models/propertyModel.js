@@ -146,6 +146,9 @@ const PropertySchema = mongoose.Schema(
       type: [Object],
       // required: [true, "Please add a  Furniture List"],
     },
+    Remark: {
+      type: String,
+    },
     Disposed: {
       type: Boolean,
       // required: [true, "Please add a Disposal Status"],
