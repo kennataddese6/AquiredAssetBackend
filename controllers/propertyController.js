@@ -18,7 +18,14 @@ const registerProperty = asyncHandler(async (req, res) => {
     res.status(400);
   }
 });
-
+const addReEstimation = asyncHandler(async (req, res) => {
+  const property = await Property.find({ _id: req.body.Id });
+  if (property) {
+    
+  } else {
+    res.status(404).json({ message: "Property not found" });
+  }
+});
 const getAllProperty = asyncHandler(async (req, res) => {
   let property;
   if (req.body.view === "District") {

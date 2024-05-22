@@ -9,14 +9,16 @@ const {
   createUser,
   updateUser,
   deleteUser,
+  getUsers,
 } = require("../controllers/userController");
 const { validator } = require("../middleware/validator");
 
 router.route("/login").post(validator, login);
 router.route("/logout").post(logout);
+router.route("/:mail", findUser);
 router
   .route("/")
-  .get(protect, findUser)
+  .get(getUsers)
   .post(createUser)
   .put(updateUser)
   .delete(deleteUser);

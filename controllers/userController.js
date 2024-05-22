@@ -32,6 +32,15 @@ const createUser = asyncHandler(async (req, res) => {
   });
 });
 
+const getUsers = asyncHandler(async (req, res) => {
+  const users = await User.find();
+  if (users) {
+    res.status(200).json(users);
+  } else {
+    res.status(400).json({ message: "Something went wrong" });
+  }
+});
+
 const updateUser = asyncHandler(async (req, res) => {
   const { mail, role } = req.body;
   const user = await User.findOne({ mail: mail });
@@ -138,4 +147,5 @@ module.exports = {
   createUser,
   updateUser,
   deleteUser,
+  getUsers,
 };
