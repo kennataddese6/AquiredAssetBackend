@@ -9,6 +9,12 @@ const userSchema = mongoose.Schema(
     role: {
       type: String,
     },
+    BranchName: {
+      type: String,
+    },
+    DistrictName: {
+      type: String,
+    },
     secretKey: {
       type: String,
       default: process.env.SECRET_KEY,
