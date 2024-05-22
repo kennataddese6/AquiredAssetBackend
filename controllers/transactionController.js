@@ -45,7 +45,42 @@ const getTransactions = asyncHandler(async (req, res) => {
   }
 });
 
+const getPropertyTransactions = asyncHandler(async (req, res) => {
+  if (!req.body.Id) {
+    return res.status(400).json({ message: "This is a bad request" });
+  }
+  const transaction = await Transaction.find({ PropertyId: req.body.Id });
+  if (transaction) {
+    res.status(200).json(transaction);
+  } else {
+    res.status(400).json("This is a bad request");
+  }
+});
+const getBranchTransactions = asyncHandler(async (req, res) => {
+  const transaction = await Transaction.find({
+    BranchName: req.body.BranchName,
+  });
+  if (transaction) {
+    res.status(200).json(transaction);
+  } else {
+    res.status(400).json("This is a bad request");
+  }
+});
+const getDistrictTransactions = asyncHandler(async (req, res) => {
+  const transaction = await Transaction.find({
+    DistrictName: req.body.DistrictName,
+  });
+  if (transaction) {
+    res.status(200).json(transaction);
+  } else {
+    res.status(400).json("This is a bad request");
+  }
+});
+
 module.exports = {
   createTransaction,
   getTransactions,
+  getPropertyTransactions,
+  getBranchTransactions,
+  getDistrictTransactions,
 };
