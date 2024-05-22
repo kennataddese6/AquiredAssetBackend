@@ -108,7 +108,7 @@ const getMe = asyncHandler(async (req, res) => {
 });
 
 const findUser = asyncHandler(async (req, res) => {
-  ad.findUser({ attributes: ["*"] }, req.body.mail, (err, user) => {
+  ad.findUser({ attributes: ["*"] }, req.query.mail, (err, user) => {
     if (user) {
       console.log(
         user.department.includes("District Facilities Management Support")
