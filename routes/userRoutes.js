@@ -15,7 +15,8 @@ const { validator } = require("../middleware/validator");
 
 router.route("/login").post(validator, login);
 router.route("/logout").post(logout);
-router.route("/:mail", findUser);
+
+router.route("/search", findUser);
 router
   .route("/")
   .get(getUsers)
