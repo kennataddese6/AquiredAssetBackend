@@ -7,7 +7,6 @@ const userSchema = mongoose.Schema(
     },
     mail: {
       type: String,
-      unique: true,
     },
     role: {
       type: String,
