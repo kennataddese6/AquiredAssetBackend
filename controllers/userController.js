@@ -82,7 +82,9 @@ const deleteUser = asyncHandler(async (req, res) => {
 const login = asyncHandler(async (req, res) => {
   try {
     const { mail, password } = req.body;
-    const user = await User.findOne({ mail: mail });
+    const user = await User.findOne({
+      mail: { $regex: new RegExp("^" + mail + "$", "i") },
+    });
     if (user) {
       ad.authenticate(user?.mail, password, async (err, auth) => {
         if (auth) {
