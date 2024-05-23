@@ -37,9 +37,17 @@ const createTransaction = asyncHandler(async (req, res) => {
   }
 });
 const getTransactions = asyncHandler(async (req, res) => {
-  const transaction = await Transaction.find();
-  if (transaction) {
-    res.status(200).json(transaction);
+  const { role, BranchName, DistrictName } = req.body;
+  let transactions;
+  if (req.body.role === "Branch") {
+    transactions = await Transaction.find({ BranchName: BranchName });
+  } else if (req.body.role === "District") {
+    transactions = await Transaction.find({ DistrictName: DistrictName });
+  } else {
+    transactions = await Transaction.find();
+  }
+  if (transactions) {
+    res.status(200).json(transactions);
   } else {
     res.status(400).json("This is a bad request");
   }
