@@ -2,11 +2,17 @@ const mongoose = require("mongoose");
 
 const userSchema = mongoose.Schema(
   {
+    cn: {
+      type: String,
+    },
     mail: {
       type: String,
       unique: true,
     },
     role: {
+      type: String,
+    },
+    employeeId: {
       type: String,
     },
     BranchName: {

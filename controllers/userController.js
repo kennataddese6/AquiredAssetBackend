@@ -10,7 +10,7 @@ const generateToken = (mail) =>
   });
 
 const createUser = asyncHandler(async (req, res) => {
-  const { mail, role } = req.body;
+  const { mail, role, employeeId, cn } = req.body;
   const userExist = await User.findOne({ mail: mail });
   if (userExist) {
     return res.status(400).json({ message: "User already exist" });
@@ -20,6 +20,8 @@ const createUser = asyncHandler(async (req, res) => {
       const createdUser = await User.create({
         mail,
         role,
+        employeeId,
+        cn,
       });
       if (createdUser) {
         res.status(200).json({ message: "User Created" });
