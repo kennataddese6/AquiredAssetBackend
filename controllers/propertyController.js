@@ -21,7 +21,15 @@ const registerProperty = asyncHandler(async (req, res) => {
 const addReEstimation = asyncHandler(async (req, res) => {
   const property = await Property.find({ _id: req.body.Id });
   if (property) {
-    
+    const existingReEstimations = property.ReEstimation;
+    const newReEstimation = {
+      EstimationDate: req.body.EstimationDate,
+      EstimationValue: req.body.EstimationValue,
+    };
+    const totalReEstimation = [...existingReEstimations, newReEstimation];
+    property.ReEstimation = totalReEstimation;
+    await property.save();
+    res.status(200).json({ message: "Success" });
   } else {
     res.status(404).json({ message: "Property not found" });
   }
@@ -141,4 +149,5 @@ module.exports = {
   getDistrictProperty,
   getDocument,
   getDocuments,
+  addReEstimation,
 };
