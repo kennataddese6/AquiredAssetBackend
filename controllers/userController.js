@@ -10,7 +10,7 @@ const generateToken = (mail) =>
   });
 
 const createUser = asyncHandler(async (req, res) => {
-  const { mail, role, employeeId, cn } = req.body;
+  const { mail, role, employeeId, cn, BranchName, DistrictName } = req.body;
   const userExist = await User.findOne({ mail: mail });
   if (userExist) {
     return res.status(400).json({ message: "User already exist" });
@@ -22,6 +22,8 @@ const createUser = asyncHandler(async (req, res) => {
         role,
         employeeId,
         cn,
+        BranchName,
+        DistrictName,
       });
       if (createdUser) {
         res.status(200).json({ message: "User Created" });
@@ -98,22 +100,15 @@ const login = asyncHandler(async (req, res) => {
   }
 });
 const getMe = asyncHandler(async (req, res) => {
-  try {
-    const token = req.cookies.token;
-    const secret = process.env.JWT_SECRET || "ThisIsAVerySillyKeyToDo";
-    const decoded = jwt.verify(token, secret);
-
-    // Extract the mail
-    const mail = decoded.mail;
-    ad.findUser({ attributes: ["*"] }, mail, (err, user) => {
-      if (user) {
-        res.status(200).json(user);
-      } else {
-        res.status(400).json("User not found");
-      }
-    });
-  } catch (error) {
-    console.log(error);
+  const token = req.cookies.token;
+  const secret = process.env.JWT_SECRET || "ThisIsAVerySillyKeyToDo";
+  const decoded = jwt.verify(token, secret);
+  const mail = decoded.mail;
+  const user = await User.findOne({ mail: mail });
+  if (user) {
+    res.status(200).json(user);
+  } else {
+    res.status(400);
   }
 });
 
