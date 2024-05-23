@@ -80,20 +80,19 @@ const deleteUser = asyncHandler(async (req, res) => {
 const login = asyncHandler(async (req, res) => {
   try {
     const { mail, password } = req.body;
-    ad.findUser({ attributes: ["*"] }, mail, (err, user) => {
-      if (user) {
-        ad.authenticate(user?.mail, password, async (err, auth) => {
-          if (auth) {
-            res.cookie("token", generateToken(mail));
-            res.status(200).json(user);
-          } else {
-            res.status(400).json("Incorrect username or password");
-          }
-        });
-      } else {
-        res.status(404).json({ error: "Error" });
-      }
-    });
+    const user = await User.findOne({ mail: mail });
+    if (user) {
+      ad.authenticate(user?.mail, password, async (err, auth) => {
+        if (auth) {
+          res.cookie("token", generateToken(mail));
+          res.status(200).json(user);
+        } else {
+          res.status(400).json("Incorrect username or password");
+        }
+      });
+    } else {
+      res.status(404).json({ message: "user not found" });
+    }
   } catch (error) {
     console.log(error);
   }
