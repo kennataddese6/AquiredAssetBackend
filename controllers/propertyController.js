@@ -36,7 +36,10 @@ const addReEstimation = asyncHandler(async (req, res) => {
 });
 const getAllProperty = asyncHandler(async (req, res) => {
   let property;
-  if (req.body.view === "District") {
+  if (req.body.role === "District") {
+    const { DistrictName } = req.params;
+    property = await Property.find({ DistrictName: DistrictName });
+  } else if (req.body.role === "Branch") {
     const { BranchName } = req.params;
     property = await Property.find({ BranchName: BranchName });
   } else {

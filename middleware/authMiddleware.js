@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
 const ad = require("../config/ad");
-
+const User = require("../models/propertyModel");
 const protect = asyncHandler(async (req, res, next) => {
   const token = req.cookies.token;
   if (!token) {
@@ -16,6 +16,12 @@ const protect = asyncHandler(async (req, res, next) => {
     if (!mail) {
       res.status(404).json("Something went wrong");
       return;
+    }
+    const localUser = await User.findOne({
+      mail: { $regex: new RegExp("^" + mail + "$", "i") },
+    });
+    if (localUser) {
+      req.body.role = localUser.role;
     }
     ad.findUser({ attributes: ["*"] }, mail, (err, user) => {
       if (user) {

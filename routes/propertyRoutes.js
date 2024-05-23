@@ -35,7 +35,7 @@ const {
 router
   .route("/")
   .post(validator, protect, registerProperty)
-  .get(getAllProperty);
+  .get(protect, getAllProperty);
 router.route("/dispose").post(validator, disposeProperty);
 router.route("/branch/").get(validator, protect, getBranchProperty);
 router.route("/district/").get(validator, protect, getDistrictProperty);
