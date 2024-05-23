@@ -106,11 +106,13 @@ const getMe = asyncHandler(async (req, res) => {
   const secret = process.env.JWT_SECRET || "ThisIsAVerySillyKeyToDo";
   const decoded = jwt.verify(token, secret);
   const mail = decoded.mail;
-  const user = await User.findOne({ mail: mail });
+  const user = await User.findOne({
+    mail: { $regex: new RegExp("^" + mail + "$", "i") },
+  });
   if (user) {
     res.status(200).json(user);
   } else {
-    res.status(400);
+    res.sendStatus(400);
   }
 });
 
