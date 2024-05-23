@@ -20,7 +20,7 @@ router.route("/search").get(findUser);
 router
   .route("/")
   .get(getUsers)
-  .post(createUser)
+  .post(protect, createUser)
   .put(updateUser)
   .delete(deleteUser);
 router.route("/me").get(protect, validator, getMe);

@@ -12,7 +12,7 @@ const userSchema = mongoose.Schema(
     role: {
       type: String,
     },
-    employeeId: {
+    employeeID: {
       type: String,
     },
     BranchName: {
