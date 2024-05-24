@@ -55,6 +55,12 @@ app.use("/api/transactions", require("./routes/transactionRoute"));
 app.use("/api/property", require("./routes/propertyRoutes"));
 app.use("/api/auction", require("./routes/auctionRoutes"));
 app.use("/api/user", require("./routes/userRoutes"));
+app.use(
+  "/uploads",
+  express.static(
+    "C:\\Users\\KennaTaddese.CBE\\Documents\\Projects\\AcquiredAssetBackend\\uploads"
+  )
+);
 
 const server = app.listen(port, () =>
   console.log(`Server started on port ${port}`)
