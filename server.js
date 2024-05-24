@@ -6,7 +6,10 @@ const dotenv = require("dotenv");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const cookieParser = require("cookie-parser");
+const path = require("path");
 const wss = new WebSocket.Server({ noServer: true });
+const uploadDir = path.join(__dirname, "uploads");
+
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
@@ -55,12 +58,7 @@ app.use("/api/transactions", require("./routes/transactionRoute"));
 app.use("/api/property", require("./routes/propertyRoutes"));
 app.use("/api/auction", require("./routes/auctionRoutes"));
 app.use("/api/user", require("./routes/userRoutes"));
-app.use(
-  "/file",
-  express.static(
-    "C:\\Users\\KennaTaddese.CBE\\Documents\\Projects\\AcquiredAssetBackend\\uploads"
-  )
-);
+app.use("/file", express.static(uploadDir));
 
 const server = app.listen(port, () =>
   console.log(`Server started on port ${port}`)
