@@ -56,7 +56,7 @@ app.use("/api/property", require("./routes/propertyRoutes"));
 app.use("/api/auction", require("./routes/auctionRoutes"));
 app.use("/api/user", require("./routes/userRoutes"));
 app.use(
-  "/uploads",
+  "/file",
   express.static(
     "C:\\Users\\KennaTaddese.CBE\\Documents\\Projects\\AcquiredAssetBackend\\uploads"
   )
