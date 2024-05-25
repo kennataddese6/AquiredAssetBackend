@@ -19,19 +19,19 @@ const AuctionSchema = mongoose.Schema({
   },
   AuctionResult: {
     type: String,
-    require: [true, "Please add an Auction Result"],
+    // require: [true, "Please add an Auction Result"],
   },
   AuctionSellPrice: {
     type: Number,
-    require: [true, "Please add an Auction Sell Price"],
+    // require: [true, "Please add an Auction Sell Price"],
   },
   AuctionProfitValue: {
     type: String,
-    require: [true, "Please add an Auction Profit value"],
+    // require: [true, "Please add an Auction Profit value"],
   },
   AuctionLossValue: {
     type: String,
-    require: [true, "Please add an Auction Loss value"],
+    // require: [true, "Please add an Auction Loss value"],
   },
 });
 
