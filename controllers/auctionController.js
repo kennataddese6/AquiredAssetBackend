@@ -26,8 +26,17 @@ const getAllAuctions = asyncHandler(async (req, res) => {
     res.status(400);
   }
 });
+const getAuctions = asyncHandler(async (req, res) => {
+  const auction = await Auction.find({PropertyId: req.params.Id});
+  if (auction) {
+    res.status(200).json(auction);
+  } else {
+    res.status(400);
+  }
+});
 
 module.exports = {
   createAuction,
   getAllAuctions,
+  getAuctions
 };
