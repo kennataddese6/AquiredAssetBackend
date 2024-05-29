@@ -2,7 +2,6 @@ const ad = require("../config/ad");
 const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
-const { json } = require("express");
 
 const generateToken = (mail) =>
   jwt.sign({ mail }, process.env.JWT_SECRET || "ThisIsAVerySillyKeyToDo", {
@@ -10,30 +9,16 @@ const generateToken = (mail) =>
   });
 
 const createUser = asyncHandler(async (req, res) => {
-  const { mail, role, employeeID, cn, BranchName, DistrictName } = req.body;
-  const userExist = await User.findOne({ mail: mail });
+  const userExist = await User.findOne({ mail: req.body.mail });
   if (userExist) {
     return res.status(400).json({ message: "User already exist" });
   }
-  ad.findUser({ attributes: ["*"] }, mail, async (err, user) => {
-    if (user) {
-      const createdUser = await User.create({
-        mail,
-        role,
-        employeeID,
-        cn,
-        BranchName,
-        DistrictName,
-      });
-      if (createdUser) {
-        res.status(200).json({ message: "User Created" });
-      } else {
-        res.status(400).json({ message: "Something went wrong" });
-      }
-    } else {
-      res.status(404).json({ message: "User not found!" });
-    }
-  });
+  const createdUser = await User.create(req.body);
+  if (createdUser) {
+    res.status(200).json({ message: "User Created" });
+  } else {
+    res.status(400).json({ message: "Something went wrong" });
+  }
 });
 
 const getUsers = asyncHandler(async (req, res) => {
@@ -88,7 +73,13 @@ const login = asyncHandler(async (req, res) => {
     if (user) {
       ad.authenticate(user?.mail, password, async (err, auth) => {
         if (auth) {
-          res.cookie("token", generateToken(mail));
+          res.cookie("token", generateToken(mail), {
+            domain: "vgf59b03-5000.uks1.devtunnels.ms",
+            sameSite: "None",
+            path: "/",
+            secure: true,
+          });
+
           res.status(200).json(user);
         } else {
           res.status(400).json("Incorrect username or password");
@@ -131,7 +122,12 @@ const findUser = asyncHandler(async (req, res) => {
 
 const logout = asyncHandler(async (req, res) => {
   try {
-    res.clearCookie("token");
+    res.clearCookie("token", {
+      domain: "vgf59b03-5000.uks1.devtunnels.ms",
+      sameSite: "None",
+      path: "/",
+      secure: true,
+    });
     res.status(200).json({ message: "Successfully logged out" });
   } catch (error) {
     console.error(error);
