@@ -20,6 +20,9 @@ const userSchema = mongoose.Schema(
     DistrictName: {
       type: String,
     },
+    Region: {
+      type: String,
+    },
     secretKey: {
       type: String,
       default: process.env.SECRET_KEY,

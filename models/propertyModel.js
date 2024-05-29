@@ -70,6 +70,10 @@ const PropertySchema = mongoose.Schema(
       type: String,
       // required: [true, "Please add a Property type"],
     },
+    Region: {
+      type: String,
+      // required: [true, "Please add a Branch Name"],
+    },
     BranchName: {
       type: String,
       // required: [true, "Please add a Branch Name"],
