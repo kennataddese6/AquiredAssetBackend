@@ -11,6 +11,9 @@ const createAuction = asyncHandler(async (req, res) => {
     AuctionSellPrice: req.body.AuctionSellPrice,
     AuctionProfitValue: req.body.AuctionProfitValue,
     AuctionLossValue: req.body.AuctionLossValue,
+    Region: req.user.Region,
+    DistrictName: req.user.DistrictName,
+    BranchName: req.user.BranchName,
   });
   if (auction) {
     res.status(200).json(auction);
@@ -19,7 +22,16 @@ const createAuction = asyncHandler(async (req, res) => {
   }
 });
 const getAllAuctions = asyncHandler(async (req, res) => {
-  const auction = await Auction.find();
+  let auction;
+  if (req.user.role === "District") {
+    auction = await Auction.find({ DistrictName: req.user.DistrictName });
+  } else if (req.user.role === "Branch") {
+    auction = await Auction.find({ BranchName: req.user.BranchName });
+  } else if (req.user.role === "Region") {
+    auction = await Auction.find({ Region: req.user.Region });
+  } else {
+    auction = await Auction.find();
+  }
   if (auction) {
     res.status(200).json(auction);
   } else {
@@ -27,7 +39,7 @@ const getAllAuctions = asyncHandler(async (req, res) => {
   }
 });
 const getAuctions = asyncHandler(async (req, res) => {
-  const auction = await Auction.find({PropertyId: req.params.Id});
+  const auction = await Auction.find({ PropertyId: req.params.Id });
   if (auction) {
     res.status(200).json(auction);
   } else {
@@ -38,5 +50,5 @@ const getAuctions = asyncHandler(async (req, res) => {
 module.exports = {
   createAuction,
   getAllAuctions,
-  getAuctions
+  getAuctions,
 };
