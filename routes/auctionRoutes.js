@@ -5,9 +5,10 @@ const {
   createAuction,
   getAllAuctions,
   getAuctions,
+  updateAuction,
 } = require("../controllers/auctionController");
 
-router.get("/:Id", getAuctions);
-router.route("/").post(createAuction).get(protect, getAllAuctions);
+router.route("/:Id").get(protect, getAuctions).patch(protect, updateAuction);
+router.route("/").post(protect, createAuction).get(protect, getAllAuctions);
 
 module.exports = router;

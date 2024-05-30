@@ -37,11 +37,7 @@ const AuctionSchema = mongoose.Schema({
     type: Number,
     // require: [true, "Please add an Auction Sell Price"],
   },
-  AuctionProfitValue: {
-    type: String,
-    // require: [true, "Please add an Auction Profit value"],
-  },
-  AuctionLossValue: {
+  Vat: {
     type: String,
     // require: [true, "Please add an Auction Loss value"],
   },

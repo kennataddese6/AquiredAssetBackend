@@ -11,9 +11,9 @@ const createAuction = asyncHandler(async (req, res) => {
     AuctionSellPrice: req.body.AuctionSellPrice,
     AuctionProfitValue: req.body.AuctionProfitValue,
     AuctionLossValue: req.body.AuctionLossValue,
-    Region: req.user.Region,
-    DistrictName: req.user.DistrictName,
-    BranchName: req.user.BranchName,
+    Region: req?.user?.Region,
+    DistrictName: req?.user?.DistrictName,
+    BranchName: req?.user?.BranchName,
   });
   if (auction) {
     res.status(200).json(auction);
@@ -46,9 +46,33 @@ const getAuctions = asyncHandler(async (req, res) => {
     res.status(400);
   }
 });
+const updateAuction = asyncHandler(async (req, res) => {
+  try {
+    const AuctionId = req.params.Id;
+    const { result, sellPrice, Vat } = req.body;
+    const updatedAuction = await Auction.findByIdAndUpdate(
+      AuctionId,
+      { AuctionResult: result },
+      { new: true }
+    );
+    if (!updatedAuction) {
+      return res.status(404).json({ message: "Auction not found" });
+    }
+    if (result === "sold") {
+      updatedAuction.AuctionSellPrice = sellPrice;
+      updatedAuction.Vat = Vat;
+      await updatedAuction.save();
+    }
+    res.status(200).json(updatedAuction);
+  } catch (error) {
+    console.error("Error updating auction:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 module.exports = {
   createAuction,
   getAllAuctions,
   getAuctions,
+  updateAuction,
 };
