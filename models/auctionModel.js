@@ -5,6 +5,18 @@ const AuctionSchema = mongoose.Schema({
     type: String,
     require: [true, "Please add a Property Id"],
   },
+  Region: {
+    type: String,
+    // require: [true, "Please add a Property Id"],
+  },
+  DistrictName: {
+    type: String,
+    // require: [true, "Please add a Property Id"],
+  },
+  BranchName: {
+    type: String,
+    // require: [true, "Please add a Property Id"],
+  },
   AuctionMinimalPrice: {
     type: Number,
     require: [true, "Please add an Auction minimal price"],
