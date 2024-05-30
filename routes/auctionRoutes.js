@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-
+const { protect } = require("../middleware/authMiddleware");
 const {
   createAuction,
   getAllAuctions,
@@ -8,6 +8,6 @@ const {
 } = require("../controllers/auctionController");
 
 router.get("/:Id", getAuctions);
-router.route("/").post(createAuction).get(getAllAuctions);
+router.route("/").post(createAuction).get(protect, getAllAuctions);
 
 module.exports = router;
