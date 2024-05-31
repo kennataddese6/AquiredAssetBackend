@@ -49,17 +49,17 @@ const getAuctions = asyncHandler(async (req, res) => {
 const updateAuction = asyncHandler(async (req, res) => {
   try {
     const AuctionId = req.params.Id;
-    const { result, sellPrice, Vat } = req.body;
+    const { Result, SellPrice, Vat } = req.body;
     const updatedAuction = await Auction.findByIdAndUpdate(
       AuctionId,
-      { AuctionResult: result },
+      { AuctionResult: Result },
       { new: true }
     );
     if (!updatedAuction) {
       return res.status(404).json({ message: "Auction not found" });
     }
-    if (result === "sold") {
-      updatedAuction.AuctionSellPrice = sellPrice;
+    if (Result === "Sold") {
+      updatedAuction.AuctionSellPrice = SellPrice;
       updatedAuction.Vat = Vat;
       await updatedAuction.save();
     }
