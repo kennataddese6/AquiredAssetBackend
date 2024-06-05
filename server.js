@@ -9,17 +9,17 @@ const cookieParser = require("cookie-parser");
 const path = require("path");
 const wss = new WebSocket.Server({ noServer: true });
 const uploadDir = path.join(__dirname, "uploads");
+dotenv.config();
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
 });
 const corsOptions = {
-  origin: process.env.ORIGINS,
+  origin: JSON.parse(process.env.ORIGINS),
   credentials: true,
   optionsSuccessStatus: 200,
 };
-dotenv.config();
 const port = process.env.PORT || 5000;
 connectDB();
 
