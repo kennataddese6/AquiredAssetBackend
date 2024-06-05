@@ -11,7 +11,12 @@ const registerProperty = asyncHandler(async (req, res) => {
   ) {
     propertyData.InsuranceRenewal = [propertyData.InsuranceRenewal];
   }
-  const property = await Property.create(propertyData);
+  const property = await Property.create({
+    ...propertyData,
+    BranchName: req.user.BranchName,
+    DistrictName: req.user.DistrictName,
+    Region: req.user.Region,
+  });
   if (property) {
     res.status(200).json(property);
   } else {
@@ -19,7 +24,8 @@ const registerProperty = asyncHandler(async (req, res) => {
   }
 });
 const addReEstimation = asyncHandler(async (req, res) => {
-  const property = await Property.find({ _id: req.body.Id });
+  console.log(req.body);
+  const property = await Property.findOne({ _id: req.body.PropertyId });
   if (property) {
     const existingReEstimations = property.ReEstimation;
     const newReEstimation = {
@@ -34,14 +40,25 @@ const addReEstimation = asyncHandler(async (req, res) => {
     res.status(404).json({ message: "Property not found" });
   }
 });
+const getReEstimations = asyncHandler(async (req, res) => {
+  const property = await Property.findOne({ _id: req.params.Id });
+  if (property) {
+    const ReEstimations = property.ReEstimation;
+    console.log(ReEstimations);
+
+    res.status(200).json(ReEstimations);
+  } else {
+    res.status(404).json({ message: "Property not found" });
+  }
+});
 const getAllProperty = asyncHandler(async (req, res) => {
   let property;
-  if (req.body.role === "District") {
-    const { DistrictName } = req.params;
-    property = await Property.find({ DistrictName: DistrictName });
-  } else if (req.body.role === "Branch") {
-    const { BranchName } = req.params;
-    property = await Property.find({ BranchName: BranchName });
+  if (req.user?.role === "District") {
+    property = await Property.find({ DistrictName: req.user?.DistrictName });
+  } else if (req.user?.role === "Branch") {
+    property = await Property.find({ BranchName: req.user?.BranchName });
+  } else if (req.user?.role === "Region") {
+    property = await Property.find({ Region: req.user?.Region });
   } else {
     property = await Property.find();
   }
@@ -94,10 +111,10 @@ const getProperty = asyncHandler(async (req, res) => {
   }
 });
 
-const disposeProperty = asyncHandler(async (req, res) => {
+const updateProperty = asyncHandler(async (req, res) => {
   const result = await Property.findOneAndUpdate(
-    { _id: req.body.Id },
-    { $set: { Disposed: true } }
+    { _id: req.params.Id },
+    { $set: req.body }
   );
   if (result.modifiedCount) {
     res.status(200).json("Operation successful");
@@ -107,10 +124,7 @@ const disposeProperty = asyncHandler(async (req, res) => {
 });
 const uploadDocument = asyncHandler(async (req, res) => {
   const document = await Document.create({
-    PropertyId: req.body.PropertyId,
-    DocumentType: req.body.DocumentType,
-    RefNo: req.body.RefNo,
-    Date: req.body.Date,
+    ...req.body,
     OriginalName: req.file.originalname,
     Encoding: req.file.encoding,
     MimeType: req.file.mimetype,
@@ -146,11 +160,12 @@ module.exports = {
   registerProperty,
   getAllProperty,
   uploadDocument,
-  disposeProperty,
+  updateProperty,
   getProperty,
   getBranchProperty,
   getDistrictProperty,
   getDocument,
   getDocuments,
   addReEstimation,
+  getReEstimations,
 };
