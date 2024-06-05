@@ -17,23 +17,24 @@ const AuctionSchema = mongoose.Schema({
     type: String,
     // require: [true, "Please add a Property Id"],
   },
-  AuctionMinimalPrice: {
+  MinimalPrice: {
     type: Number,
     require: [true, "Please add an Auction minimal price"],
   },
-  AuctionSubmissionDate: {
+  SubmissionDate: {
     type: Date,
     require: [true, "Please add an Auction Submission date"],
   },
-  AuctionOpeningDate: {
+  OpeningDate: {
     type: Date,
     require: [true, "Please add an Auction opening date"],
   },
-  AuctionResult: {
+  Status: {
     type: String,
+    default: "Open",
     // require: [true, "Please add an Auction Result"],
   },
-  AuctionSellPrice: {
+  SoldPrice: {
     type: Number,
     // require: [true, "Please add an Auction Sell Price"],
   },
