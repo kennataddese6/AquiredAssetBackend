@@ -157,12 +157,19 @@ const PropertySchema = mongoose.Schema(
       type: Boolean,
       // required: [true, "Please add a Disposal Status"],
     },
+    Status: {
+      type: String,
+      default: "Active",
+      // required: [true, "Please add a Disposal Status"],
+    },
+
     Disposal: {
       type: DisposalSchema,
       // required: [true, "Please add a Disposal"],
     },
     ReEstimation: {
-      type: EstimationSchema,
+      type: [EstimationSchema],
+      default: [],
       // required: [true, "Please add a Re-estimation"],
     },
     InsuranceRenewal: {
