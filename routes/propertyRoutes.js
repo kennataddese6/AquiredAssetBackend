@@ -25,18 +25,22 @@ const {
   getAllProperty,
   uploadDocument,
   getProperty,
-  disposeProperty,
+  updateProperty,
   getBranchProperty,
   getDistrictProperty,
   getDocument,
   getDocuments,
+  addReEstimation,
+  getReEstimations,
 } = require("../controllers/propertyController");
 
 router
   .route("/")
   .post(validator, protect, registerProperty)
   .get(protect, getAllProperty);
-router.route("/dispose").post(validator, disposeProperty);
+router.route("/:Id").patch(validator, updateProperty);
+router.route("/re-estimation/").post(addReEstimation);
+router.route("/re-estimation/:Id").get(getReEstimations);
 router.route("/branch/").get(validator, protect, getBranchProperty);
 router.route("/district/").get(validator, protect, getDistrictProperty);
 router.route("/:Id([0-9a-fA-F]{24})").get(validator, getProperty);
