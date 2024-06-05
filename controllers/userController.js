@@ -5,7 +5,7 @@ const User = require("../models/userModel");
 
 const generateToken = (mail) =>
   jwt.sign({ mail }, process.env.JWT_SECRET || "ThisIsAVerySillyKeyToDo", {
-    expiresIn: "1h",
+    expiresIn: "7d",
   });
 
 const createUser = asyncHandler(async (req, res) => {
@@ -71,20 +71,26 @@ const login = asyncHandler(async (req, res) => {
       mail: { $regex: new RegExp("^" + mail + "$", "i") },
     });
     if (user) {
-      ad.authenticate(user?.mail, password, async (err, auth) => {
-        if (auth) {
-          res.cookie("token", generateToken(mail), {
-            domain: "vgf59b03-5000.uks1.devtunnels.ms",
-            sameSite: "None",
-            path: "/",
-            secure: true,
-          });
+      ad.authenticate(
+        user.mail + process.env.DOMAIN,
+        password,
+        async (err, auth) => {
+          console.log(err, auth);
+          if (auth) {
+            res.cookie("token", generateToken(mail), {
+              domain: "vgf59b03-5000.uks1.devtunnels.ms",
+              sameSite: "None",
+              path: "/",
+              secure: true,
+              expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+            });
 
-          res.status(200).json(user);
-        } else {
-          res.status(400).json("Incorrect username or password");
+            res.status(200).json(user);
+          } else {
+            res.status(400).json("Incorrect username or password");
+          }
         }
-      });
+      );
     } else {
       res.status(404).json({ message: "user not found" });
     }
@@ -110,9 +116,6 @@ const getMe = asyncHandler(async (req, res) => {
 const findUser = asyncHandler(async (req, res) => {
   ad.findUser({ attributes: ["*"] }, req.query.mail, (err, user) => {
     if (user) {
-      console.log(
-        user.department.includes("District Facilities Management Support")
-      );
       res.status(200).json(user);
     } else {
       res.status(400).json("User not found");
