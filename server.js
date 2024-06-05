@@ -15,7 +15,7 @@ const limiter = rateLimit({
   max: 100,
 });
 const corsOptions = {
-  origin: ["http://localhost:5173"],
+  origin: process.env.ORIGINS,
   credentials: true,
   optionsSuccessStatus: 200,
 };
