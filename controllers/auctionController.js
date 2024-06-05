@@ -3,14 +3,7 @@ const asyncHandler = require("express-async-handler");
 
 const createAuction = asyncHandler(async (req, res) => {
   const auction = await Auction.create({
-    PropertyId: req.body.PropertyId,
-    AuctionMinimalPrice: req.body.AuctionMinimalPrice,
-    AuctionSubmissionDate: req.body.AuctionSubmissionDate,
-    AuctionOpeningDate: req.body.AuctionOpeningDate,
-    AuctionResult: req.body.AuctionResult,
-    AuctionSellPrice: req.body.AuctionSellPrice,
-    AuctionProfitValue: req.body.AuctionProfitValue,
-    AuctionLossValue: req.body.AuctionLossValue,
+    ...req.body,
     Region: req?.user?.Region,
     DistrictName: req?.user?.DistrictName,
     BranchName: req?.user?.BranchName,
@@ -48,25 +41,15 @@ const getAuctions = asyncHandler(async (req, res) => {
 });
 const updateAuction = asyncHandler(async (req, res) => {
   try {
-    const AuctionId = req.params.Id;
-    const { Result, SellPrice, Vat } = req.body;
     const updatedAuction = await Auction.findByIdAndUpdate(
-      AuctionId,
-      { AuctionResult: Result },
+      req.params.Id,
+      { ...req.body },
       { new: true }
     );
-    if (!updatedAuction) {
-      return res.status(404).json({ message: "Auction not found" });
-    }
-    if (Result === "Sold") {
-      updatedAuction.AuctionSellPrice = SellPrice;
-      updatedAuction.Vat = Vat;
-      await updatedAuction.save();
-    }
     res.status(200).json(updatedAuction);
   } catch (error) {
     console.error("Error updating auction:", error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: "Something went wrong" });
   }
 });
 
