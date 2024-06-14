@@ -73,7 +73,6 @@ const login = asyncHandler(async (req, res) => {
         user.mail + process.env.DOMAIN,
         password,
         async (err, auth) => {
-          console.log(err, auth);
           if (auth) {
             res.cookie("token", generateToken(mail), {
               domain: "vgf59b03-5000.uks1.devtunnels.ms",
@@ -131,7 +130,6 @@ const logout = asyncHandler(async (req, res) => {
     });
     res.status(200).json({ message: "Successfully logged out" });
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: "Error logging out" });
   }
 });

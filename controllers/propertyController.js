@@ -24,7 +24,6 @@ const registerProperty = asyncHandler(async (req, res) => {
   }
 });
 const addReEstimation = asyncHandler(async (req, res) => {
-  console.log(req.body);
   const property = await Property.findOne({ _id: req.body.PropertyId });
   if (property) {
     const existingReEstimations = property.ReEstimation;
@@ -44,7 +43,6 @@ const getReEstimations = asyncHandler(async (req, res) => {
   const property = await Property.findOne({ _id: req.params.Id });
   if (property) {
     const ReEstimations = property.ReEstimation;
-    console.log(ReEstimations);
 
     res.status(200).json(ReEstimations);
   } else {
@@ -121,7 +119,6 @@ const updateProperty = asyncHandler(async (req, res) => {
       res.status(200).json(result);
     }
   } catch (err) {
-    console.log(err);
     res.status(400).json("Something went wrong");
   }
 });
