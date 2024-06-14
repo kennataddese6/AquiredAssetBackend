@@ -112,13 +112,16 @@ const getProperty = asyncHandler(async (req, res) => {
 });
 
 const updateProperty = asyncHandler(async (req, res) => {
-  const result = await Property.findOneAndUpdate(
-    { _id: req.params.Id },
-    { $set: req.body }
-  );
-  if (result.modifiedCount) {
-    res.status(200).json("Operation successful");
-  } else {
+  try {
+    const result = await Property.findOneAndUpdate(
+      { _id: req.params.Id },
+      { $set: req.body }
+    );
+    if (result) {
+      res.status(200).json(result);
+    }
+  } catch (err) {
+    console.log(err);
     res.status(400).json("Something went wrong");
   }
 });
@@ -126,11 +129,7 @@ const uploadDocument = asyncHandler(async (req, res) => {
   const document = await Document.create({
     ...req.body,
     OriginalName: req.file.originalname,
-    Encoding: req.file.encoding,
-    MimeType: req.file.mimetype,
-    Destination: req.file.destination,
     FileName: req.file.filename,
-    Path: req.file.path,
     Size: req.file.size,
   });
   if (document) {
