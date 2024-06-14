@@ -9,25 +9,9 @@ const DocumentSchema = mongoose.Schema({
     type: String,
     require: [true, "Please add an Original Name"],
   },
-  Encoding: {
-    type: String,
-    require: [true, "Please add an Encoding"],
-  },
-  MimeType: {
-    type: String,
-    require: [true, "Please add an Mime Type"],
-  },
-  Destination: {
-    type: String,
-    require: [true, "Please add a Destination"],
-  },
   FileName: {
     type: String,
     require: [true, "Please add an File Name"],
-  },
-  Path: {
-    type: String,
-    require: [true, "Please add a Path"],
   },
   Size: {
     type: Number,
