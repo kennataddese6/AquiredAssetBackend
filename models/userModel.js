@@ -27,6 +27,10 @@ const userSchema = mongoose.Schema(
       type: String,
       default: process.env.SECRET_KEY,
     },
+    Status: {
+      type: String,
+      default: "Active",
+    },
   },
   {
     timestamps: true,
