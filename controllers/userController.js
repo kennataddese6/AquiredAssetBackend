@@ -30,17 +30,13 @@ const getUsers = asyncHandler(async (req, res) => {
   }
 });
 
-const updateUser = asyncHandler(async (req, res) => {
-  const { mail, role } = req.body;
+const deleteUser = asyncHandler(async (req, res) => {
+  const { mail } = req.body;
   const user = await User.findOne({ mail: mail });
   if (user) {
-    const updatedUser = await User.findOneAndUpdate(
-      { mail: mail },
-      { $set: { role: role } },
-      { new: true }
-    );
-    if (updatedUser) {
-      res.status(200).json({ message: "user updated successfully" });
+    const deletedUser = await User.deleteOne({ mail: mail });
+    if (deletedUser.deletedCount > 0) {
+      res.status(200).json({ message: "user deleted successfully" });
     } else {
       res.status(400).json({ message: "something went wrong" });
     }
@@ -48,13 +44,15 @@ const updateUser = asyncHandler(async (req, res) => {
     res.status(404).json({ message: "user not found" });
   }
 });
-
-const deleteUser = asyncHandler(async (req, res) => {
-  const { mail } = req.body;
-  const user = await User.findOne({ mail: mail });
+const updateUser = asyncHandler(async (req, res) => {
+  const { Id } = req.params;
+  const user = await User.findOne({ Id: _id });
   if (user) {
-    const deletedUser = await User.deleteOne({ mail: mail });
-    if (deletedUser.deletedCount > 0) {
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: Id },
+      { $set: req.body }
+    );
+    if (updatedUser) {
       res.status(200).json({ message: "user deleted successfully" });
     } else {
       res.status(400).json({ message: "something went wrong" });
