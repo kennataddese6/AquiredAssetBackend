@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const TransactionSchema = mongoose.Schema(
+const PlanSchema = mongoose.Schema(
   {
     PropertyId: {
       type: String,
@@ -36,4 +36,4 @@ const TransactionSchema = mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Transaction", TransactionSchema);
+module.exports = mongoose.model("Plan", PlanSchema);
