@@ -6,6 +6,10 @@ const PlanSchema = mongoose.Schema(
       type: String,
       require: [true, "Please add a Property Id"],
     },
+    Type: {
+      type: String,
+      require: String,
+    },
     Region: {
       type: String,
       require: [true, "Please add a Region"],
@@ -22,9 +26,8 @@ const PlanSchema = mongoose.Schema(
       type: Number,
       require: [true, "Please a Quarter"],
     },
-    DisposedBy: {
+    DisposedType: {
       type: String,
-      require: [true, "Plesae add a Disposal Mechanism"],
     },
     Year: {
       type: Number,
