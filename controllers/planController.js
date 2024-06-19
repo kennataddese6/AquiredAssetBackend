@@ -15,6 +15,25 @@ const createPlan = asyncHandler(async (req, res) => {
   }
 });
 
+const getPlans = asyncHandler(async (req, res) => {
+  let plans;
+  if (req.user?.role === "District") {
+    plans = await Plan.find({ DistrictName: req.user?.DistrictName });
+  } else if (req.user?.role === "Branch") {
+    plans = await Plan.find({ BranchName: req.user?.BranchName });
+  } else if (req.user?.role === "Region") {
+    plans = await Plan.find({ Region: req.user?.Region });
+  } else {
+    plans = await Plan.find();
+  }
+  if (plans) {
+    res.status(200).json(plans);
+  } else {
+    res.status(400);
+  }
+});
+
 module.exports = {
   createPlan,
+  getPlans,
 };
