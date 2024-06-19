@@ -55,6 +55,7 @@ app.use(
 );
 
 app.use("/api/transactions", require("./routes/transactionRoute"));
+app.use("/api/plan", require("./routes/planRoutes"));
 app.use("/api/property", require("./routes/propertyRoutes"));
 app.use("/api/auction", require("./routes/auctionRoutes"));
 app.use("/api/user", require("./routes/userRoutes"));
