@@ -15,6 +15,14 @@ const createPlan = asyncHandler(async (req, res) => {
   }
 });
 
+const getPlan = asyncHandler(async (req, res) => {
+  const plan = await Plan.find({ PropertyId: req.params.Id });
+  if (plan) {
+    res.status(200).json(plan);
+  } else {
+    res.status(400).json({ message: "Not found" });
+  }
+});
 const getPlans = asyncHandler(async (req, res) => {
   let plans;
   if (req.user?.role === "District") {
@@ -36,4 +44,5 @@ const getPlans = asyncHandler(async (req, res) => {
 module.exports = {
   createPlan,
   getPlans,
+  getPlan,
 };
