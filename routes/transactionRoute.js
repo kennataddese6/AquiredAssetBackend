@@ -2,15 +2,13 @@ const express = require("express");
 const router = express.Router();
 const { validator } = require("../middleware/validator");
 const { protect } = require("../middleware/authMiddleware");
+const { secure } = require("../middleware/secureChannel");
 
 const {
   createTransaction,
   getTransactions,
 } = require("../controllers/transactionController");
 
-router
-  .route("/")
-  .post(validator, createTransaction)
-  .get(protect, getTransactions);
+router.route("/").post(secure, createTransaction).get(protect, getTransactions);
 
 module.exports = router;
