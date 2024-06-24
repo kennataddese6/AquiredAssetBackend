@@ -23,10 +23,6 @@ const userSchema = mongoose.Schema(
     Region: {
       type: String,
     },
-    secretKey: {
-      type: String,
-      default: process.env.SECRET_KEY,
-    },
     Status: {
       type: String,
       default: "Active",
