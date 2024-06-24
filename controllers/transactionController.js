@@ -3,6 +3,33 @@ const Property = require("../models/propertyModel");
 const asyncHandler = require("express-async-handler");
 
 const createTransaction = asyncHandler(async (req, res) => {
+  const allowedParams = [
+    "PropertyId",
+    "BranchName",
+    "DistrictName",
+    "TransactionId",
+    "TransactionCategory",
+    "TransactionType",
+    "TransactionDate",
+    "TransactionValue",
+    "RenewalStartDate",
+    "RenewalEndDate",
+  ];
+  const filteredBody = {};
+  const unacceptedParams = [];
+  for (const key in req.body) {
+    if (allowedParams.includes(key)) {
+      filteredBody[key] = req.body[key];
+    } else {
+      unacceptedParams.push(key);
+    }
+  }
+  if (unacceptedParams.length > 0) {
+    return res.status(400).json({
+      message: `Unaccepted parameters`,
+    });
+  }
+
   const property = await Property.findOne({ _id: req.body.PropertyId });
   if (!property) {
     return res.status(404).json("Property not found!");
