@@ -23,14 +23,14 @@ const PlanSchema = mongoose.Schema(
       require: [true, "Please add a Property District Name"],
     },
     Quarter: {
-      type: Number,
+      type: String,
       require: [true, "Please a Quarter"],
     },
-    DisposedType: {
+    DisposalType: {
       type: String,
     },
     Year: {
-      type: Number,
+      type: String,
       require: [true, "Please add a year"],
     },
   },
