@@ -9,6 +9,9 @@ const {
   getTransactions,
 } = require("../controllers/transactionController");
 
-router.route("/").post(secure, createTransaction).get(protect, getTransactions);
+router
+  .route("/")
+  .post(validator, secure, createTransaction)
+  .get(protect, getTransactions);
 
 module.exports = router;
