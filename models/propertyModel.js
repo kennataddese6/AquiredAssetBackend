@@ -70,6 +70,10 @@ const PropertySchema = mongoose.Schema(
       type: String,
       // required: [true, "Please add a Property type"],
     },
+    Quarter: {
+      type: Number,
+      // required: [true, "Please add a Property type"],
+    },
     Region: {
       type: String,
       // required: [true, "Please add a Branch Name"],
@@ -135,7 +139,7 @@ const PropertySchema = mongoose.Schema(
       // required: [true, "Please add a Acquisition Date"],
     },
     AcquisitionValue: {
-      type: String,
+      type: Number,
       // required: [true, "Please add an Acquisition Value"],
     },
     PrincipaleAcquistion: {
