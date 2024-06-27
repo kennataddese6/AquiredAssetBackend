@@ -4,6 +4,18 @@ const Document = require("../models/documentModel");
 const transactionInfo = require("../transactionInfo.json");
 
 const registerProperty = asyncHandler(async (req, res) => {
+  const currentMonth = new Date().getMonth() + 1;
+  let Quarter;
+
+  if (currentMonth >= 7 && currentMonth <= 9) {
+    Quarter = 1;
+  } else if (currentMonth >= 10 && currentMonth <= 12) {
+    Quarter = 2;
+  } else if (currentMonth >= 1 && currentMonth <= 3) {
+    Quarter = 3;
+  } else {
+    Quarter = 4;
+  }
   const propertyData = { ...req.body };
   if (
     propertyData.InsuranceRenewal &&
@@ -16,6 +28,7 @@ const registerProperty = asyncHandler(async (req, res) => {
     BranchName: req.user.BranchName,
     DistrictName: req.user.DistrictName,
     Region: req.user.Region,
+    Quarter: Quarter,
   });
   if (property) {
     res.status(200).json(property);
@@ -51,12 +64,21 @@ const getReEstimations = asyncHandler(async (req, res) => {
 });
 const getAllProperty = asyncHandler(async (req, res) => {
   let property;
+  const { quarter } = req.query;
+  const queryDistrict = { DistrictName: req.user?.DistrictName };
+  const queryBranch = { BranchName: req.user?.BranchName };
+  const queryRegion = { Region: req.user?.Region };
+  if (quarter) {
+    queryDistrict.Quarter = quarter;
+    queryBranch.Quarter = quarter;
+    queryRegion.Quarter = quarter;
+  }
   if (req.user?.role === "District") {
-    property = await Property.find({ DistrictName: req.user?.DistrictName });
+    property = await Property.find(queryDistrict);
   } else if (req.user?.role === "Branch") {
-    property = await Property.find({ BranchName: req.user?.BranchName });
+    property = await Property.find(queryBranch);
   } else if (req.user?.role === "Region") {
-    property = await Property.find({ Region: req.user?.Region });
+    property = await Property.find(queryRegion);
   } else {
     property = await Property.find();
   }
