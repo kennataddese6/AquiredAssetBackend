@@ -40,7 +40,7 @@ router
   .post(validator, protect, registerProperty)
   .get(protect, getAllProperty);
 router.route("/:Id").patch(validator, updateProperty);
-router.route("/re-estimation/").post(addReEstimation);
+router.route("/re-estimation/").post(validator, addReEstimation);
 router.route("/re-estimation/:Id").get(getReEstimations);
 router.route("/branch/").get(validator, protect, getBranchProperty);
 router.route("/district/").get(validator, protect, getDistrictProperty);
