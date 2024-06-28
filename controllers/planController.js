@@ -25,11 +25,11 @@ const getPlan = asyncHandler(async (req, res) => {
 });
 const getPlans = asyncHandler(async (req, res) => {
   let plans;
-  if (req.user?.role === "District") {
+  if (req.user?.Role === "District") {
     plans = await Plan.find({ DistrictName: req.user?.DistrictName });
-  } else if (req.user?.role === "Branch") {
+  } else if (req.user?.Role === "Branch") {
     plans = await Plan.find({ BranchName: req.user?.BranchName });
-  } else if (req.user?.role === "Region") {
+  } else if (req.user?.Role === "Region") {
     plans = await Plan.find({ Region: req.user?.Region });
   } else {
     plans = await Plan.find();

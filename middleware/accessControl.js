@@ -18,13 +18,13 @@ const accessControl = () => {
     },
   };
   return (req, res, next) => {
-    const { role } = req.user;
+    const { Role } = req.user;
     const { path, method } = req.route;
 
     if (
-      allowedRoutes[role] &&
-      allowedRoutes[role][method] &&
-      allowedRoutes[role][method].includes(path)
+      allowedRoutes[Role] &&
+      allowedRoutes[Role][method] &&
+      allowedRoutes[Role][method].includes(path)
     ) {
       next();
     } else {

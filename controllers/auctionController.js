@@ -16,11 +16,11 @@ const createAuction = asyncHandler(async (req, res) => {
 });
 const getAllAuctions = asyncHandler(async (req, res) => {
   let auction;
-  if (req.user.role === "District") {
+  if (req.user.Role === "District") {
     auction = await Auction.find({ DistrictName: req.user.DistrictName });
-  } else if (req.user.role === "Branch") {
+  } else if (req.user.Role === "Branch") {
     auction = await Auction.find({ BranchName: req.user.BranchName });
-  } else if (req.user.role === "Region") {
+  } else if (req.user.Role === "Region") {
     auction = await Auction.find({ Region: req.user.Region });
   } else {
     auction = await Auction.find();

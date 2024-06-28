@@ -64,11 +64,11 @@ const createTransaction = asyncHandler(async (req, res) => {
   }
 });
 const getTransactions = asyncHandler(async (req, res) => {
-  const { role, BranchName, DistrictName } = req.body;
+  const { Role, BranchName, DistrictName } = req.body;
   let transactions;
-  if (req.body.role === "Branch") {
+  if (req.body.Role === "Branch") {
     transactions = await Transaction.find({ BranchName: BranchName });
-  } else if (req.body.role === "District") {
+  } else if (req.body.Role === "District") {
     transactions = await Transaction.find({ DistrictName: DistrictName });
   } else {
     transactions = await Transaction.find();

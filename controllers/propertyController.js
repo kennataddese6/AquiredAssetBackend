@@ -73,11 +73,11 @@ const getAllProperty = asyncHandler(async (req, res) => {
     queryBranch.Quarter = quarter;
     queryRegion.Quarter = quarter;
   }
-  if (req.user?.role === "District") {
+  if (req.user?.Role === "District") {
     property = await Property.find(queryDistrict);
-  } else if (req.user?.role === "Branch") {
+  } else if (req.user?.Role === "Branch") {
     property = await Property.find(queryBranch);
-  } else if (req.user?.role === "Region") {
+  } else if (req.user?.Role === "Region") {
     property = await Property.find(queryRegion);
   } else {
     property = await Property.find();

@@ -3,13 +3,13 @@ const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
-const generateToken = (mail) =>
-  jwt.sign({ mail }, process.env.JWT_SECRET || "ThisIsAVerySillyKeyToDo", {
+const generateToken = (Mail) =>
+  jwt.sign({ Mail }, process.env.JWT_SECRET, {
     expiresIn: "7d",
   });
 
 const createUser = asyncHandler(async (req, res) => {
-  const userExist = await User.findOne({ mail: req.body.mail });
+  const userExist = await User.findOne({ Mail: req.body.Mail });
   if (userExist) {
     return res.status(400).json({ message: "User already exist" });
   }
@@ -31,10 +31,10 @@ const getUsers = asyncHandler(async (req, res) => {
 });
 
 const deleteUser = asyncHandler(async (req, res) => {
-  const { mail } = req.body;
-  const user = await User.findOne({ mail: mail });
+  const { Mail } = req.body;
+  const user = await User.findOne({ Mail: Mail });
   if (user) {
-    const deletedUser = await User.deleteOne({ mail: mail });
+    const deletedUser = await User.deleteOne({ Mail: Mail });
     if (deletedUser.deletedCount > 0) {
       res.status(200).json({ message: "user deleted successfully" });
     } else {
@@ -44,9 +44,11 @@ const deleteUser = asyncHandler(async (req, res) => {
     res.status(404).json({ message: "user not found" });
   }
 });
+
 const updateUser = asyncHandler(async (req, res) => {
+  console.log(req.params, "id");
   const { Id } = req.params;
-  const user = await User.findOne({ Id: _id });
+  const user = await User.findOne({ _id: Id });
   if (user) {
     const updatedUser = await User.findOneAndUpdate(
       { _id: Id },
@@ -64,24 +66,23 @@ const updateUser = asyncHandler(async (req, res) => {
 
 const login = asyncHandler(async (req, res) => {
   try {
-    const { mail, password } = req.body;
+    const { Mail, Password } = req.body;
     const user = await User.findOne({
-      mail: { $regex: new RegExp("^" + mail + "$", "i") },
+      Mail: { $regex: new RegExp("^" + Mail + "$", "i") },
     });
     if (user) {
       ad.authenticate(
-        user.mail + process.env.DOMAIN,
-        password,
+        user.Mail + process.env.DOMAIN,
+        Password,
         async (err, auth) => {
           if (auth) {
-            res.cookie("token", generateToken(mail), {
+            res.cookie("token", generateToken(Mail), {
               domain: "vgf59b03-5000.uks1.devtunnels.ms",
               sameSite: "None",
               path: "/",
               secure: true,
               expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
             });
-
             res.status(200).json(user);
           } else {
             res.status(400).json("Incorrect username or password");
@@ -95,13 +96,14 @@ const login = asyncHandler(async (req, res) => {
     console.log(error);
   }
 });
+
 const getMe = asyncHandler(async (req, res) => {
   const token = req.cookies.token;
-  const secret = process.env.JWT_SECRET || "ThisIsAVerySillyKeyToDo";
+  const secret = process.env.JWT_SECRET;
   const decoded = jwt.verify(token, secret);
-  const mail = decoded.mail;
+  const Mail = decoded.Mail;
   const user = await User.findOne({
-    mail: { $regex: new RegExp("^" + mail + "$", "i") },
+    Mail: { $regex: new RegExp("^" + Mail + "$", "i") },
   });
   if (user) {
     res.status(200).json(user);
@@ -111,7 +113,7 @@ const getMe = asyncHandler(async (req, res) => {
 });
 
 const findUser = asyncHandler(async (req, res) => {
-  ad.findUser({ attributes: ["*"] }, req.query.mail, (err, user) => {
+  ad.findUser({ attributes: ["*"] }, req.query.Mail, (err, user) => {
     if (user) {
       res.status(200).json(user);
     } else {

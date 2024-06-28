@@ -8,11 +8,11 @@ const protect = asyncHandler(async (req, res, next) => {
     res.status(401).json("Not authorized");
     return;
   }
-  const secret = process.env.JWT_SECRET || "ThisIsAVerySillyKeyToDo";
+  const secret = process.env.JWT_SECRET;
   try {
     req.user = await User.findOne({
-      mail: {
-        $regex: new RegExp("^" + jwt.verify(token, secret).mail + "$", "i"),
+      Mail: {
+        $regex: new RegExp("^" + jwt.verify(token, secret).Mail + "$", "i"),
       },
     });
     next();
