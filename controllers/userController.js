@@ -9,7 +9,9 @@ const generateToken = (Mail) =>
   });
 
 const createUser = asyncHandler(async (req, res) => {
-  const userExist = await User.findOne({ Mail: req.body.Mail });
+  const userExist = await User.findOne({
+    Mail: { $regex: new RegExp("^" + Mail + "$", "i") },
+  });
   if (userExist) {
     return res.status(400).json({ message: "User already exist" });
   }
@@ -22,7 +24,16 @@ const createUser = asyncHandler(async (req, res) => {
 });
 
 const getUsers = asyncHandler(async (req, res) => {
-  const users = await User.find();
+  const Role = req.user?.Role;
+  let users;
+  if (Role === "SuperAdmin") {
+    users = await User.find({ Role: "Admin" });
+  } else if (Role === "Admin") {
+    const query = {
+      Role: { $in: ["Branch", "District", "Region"] },
+    };
+    users = await User.find(query);
+  }
   if (users) {
     res.status(200).json(users);
   } else {
