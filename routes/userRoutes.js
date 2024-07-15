@@ -13,12 +13,16 @@ const {
 } = require("../controllers/userController");
 const { validator } = require("../middleware/validator");
 
-router.route("/login").post(validator, login);
+router.route("/login").post(login);
 router.route("/logout").post(logout);
 
 router.route("/search").get(findUser);
-router.route("/").get(getUsers).post(protect, createUser).delete(deleteUser);
-router.route("/:Id").patch(updateUser);
+router
+  .route("/")
+  .get(protect, getUsers)
+  .post(protect, createUser)
+  .delete(protect, deleteUser);
+router.route("/:Id").patch(protect, updateUser);
 router.route("/me").get(protect, validator, getMe);
 
 module.exports = router;
