@@ -33,6 +33,11 @@ const getUsers = asyncHandler(async (req, res) => {
       Role: { $in: ["Branch", "District", "Region"] },
     };
     users = await User.find(query);
+  } else {
+    const query = {
+      Role: { $in: ["Branch", "District", "Region", "Admin", "SuperAdmin"] },
+    };
+    users = await User.find(query);
   }
   if (users) {
     res.status(200).json(users);

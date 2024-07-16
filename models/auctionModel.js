@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
-
 const AuctionSchema = mongoose.Schema({
   PropertyId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Property",
     require: [true, "Please add a Property Id"],
   },
   Region: {
